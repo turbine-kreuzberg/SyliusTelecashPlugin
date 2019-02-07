@@ -1,16 +1,16 @@
 <p align="center">
-    <a href="https://sylius.com" target="_blank">
-        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+    <a href="https://turbinekreuzberg.com" target="_blank">
+        <img src="https://turbinekreuzberg.com/assets/images/logo-black.svg" />
     </a>
 </p>
 
-<h1 align="center">Plugin Skeleton</h1>
+<h1 align="center">Sylius Telecash Plugin</h1>
 
-<p align="center">Skeleton for starting Sylius plugins.</p>
+<p align="center">A sylius plugin implementing Telecash payment gateway.</p>
 
-## Installation
+## Development
 
-1. Run `composer create-project sylius/plugin-skeleton ProjectName`.
+1. TODO
 
 2. From the plugin skeleton root directory, run the following commands:
 

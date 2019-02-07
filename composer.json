@@ -45,8 +45,8 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Acme\\SyliusExamplePlugin\\": "src/",
-            "Tests\\Acme\\SyliusExamplePlugin\\": "tests/"
+            "Turbine\\SyliusTelecashPlugin\\": "src/",
+            "Tests\\Turbine\\SyliusTelecashPlugin\\": "tests/"
         }
     },
     "autoload-dev": {
