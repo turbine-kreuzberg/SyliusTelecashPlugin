@@ -1,15 +1,31 @@
 services:
-    turbine.telecash.form.type.gateway_configuration:
+    turbine.sylius_telecash_plugin.connect.form.type.gateway_configuration:
         class: Turbine\SyliusTelecashPlugin\Form\Type\TelecashConnectGatewayConfigurationType
-        public: true
         tags:
             - { name: sylius.gateway_configuration_type, type: telecash_connect, label: turbine.sylius_telecash_plugin.connect.label }
             - { name: form.type }
 
-    turbine.telecash.gateway_factory:
+    turbine.sylius_telecash_plugin.connect.gateway_factory:
         class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
-        public: true
         arguments:
             $gatewayFactoryClass: Turbine\SyliusTelecashPlugin\Telecash\Connect\TelecashConnectGatewayFactory
         tags:
             - { name: payum.gateway_factory_builder, factory: telecash_connect }
+
+    turbine.sylius_telecash_plugin.connect.action.capture_offsite:
+        class: Turbine\SyliusTelecashPlugin\Telecash\Connect\Action\CaptureOffsiteAction
+        public: true
+        tags:
+            - { name: payum.action, factory: telecash_connect, alias: turbine.sylius_telecash_plugin.connect.capture_payment }
+
+    turbine.sylius_telecash_plugin.connect.action.convert_payment:
+        class: Turbine\SyliusTelecashPlugin\Telecash\Connect\Action\ConvertPaymentAction
+        public: true
+        tags:
+            - { name: payum.action, factory: telecash_connect, alias: turbine.sylius_telecash_plugin.connect.convert_payment }
+
+    turbine.sylius_telecash_plugin.connect.action.status:
+        class: Turbine\SyliusTelecashPlugin\Telecash\Connect\Action\StatusAction
+        public: true
+        tags:
+            - { name: payum.action, factory: telecash_connect, alias: turbine.sylius_telecash_plugin.connect.status }

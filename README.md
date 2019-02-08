@@ -7,6 +7,7 @@
 <h1 align="center">Sylius Telecash Plugin</h1>
 
 <p align="center">A sylius plugin implementing Telecash payment gateway.</p>
+<p align="center">Currently only Connect Classic is implemented.</p>
 
 ## Development
 

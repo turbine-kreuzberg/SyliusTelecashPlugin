@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Turbine\SyliusTelecashPlugin\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,13 +19,6 @@ class TelecashConnectGatewayConfigurationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sandbox', ChoiceType::class, [
-                'choices' => [
-                    'turbine.sylius_telecash_plugin.connect.form.yes' => 1,
-                    'turbine.sylius_telecash_plugin.connect.form.no' => 0,
-                ],
-                'label' => 'turbine.sylius_telecash_plugin.connect.sandbox.label',
-            ])
             ->add('store_id', TextType::class, [
                 'label' => 'turbine.sylius_telecash_plugin.connect.store_id.label',
                 'constraints' => [
@@ -64,6 +58,9 @@ class TelecashConnectGatewayConfigurationType extends AbstractType
                     'turbine.sylius_telecash_plugin.connect.hash_algorithm.sha512' => 'SHA512',
                 ],
                 'label' => 'turbine.sylius_telecash_plugin.connect.hash_algorithm.label',
+            ])
+            ->add('sandbox', CheckboxType::class, [
+                'label' => 'turbine.sylius_telecash_plugin.connect.sandbox.label',
             ]);
     }
 }

@@ -18,12 +18,12 @@ class TelecashConnectGatewayFactory extends GatewayFactory
             'payum.factory_name' => 'telecash_connect',
             'payum.factory_title' => 'Telecash Connect',
         ]);
-        if (false === $config['payum.api']) {
+        if (!$config['payum.api']) {
             $config['payum.default_options'] = [
-                'sandbox' => 1,
-                'store_id' => '',
-                'user_id' => '',
-                'shared_secret' => '',
+                'sandbox' => true,
+                'store_id' => null,
+                'user_id' => null,
+                'shared_secret' => null,
                 'mode' => 'payonly',
                 'hash_algorithm' => 'SHA256',
             ];
@@ -36,7 +36,16 @@ class TelecashConnectGatewayFactory extends GatewayFactory
             $config['payum.api'] = function (ArrayObject $config) {
                 $config->validateNotEmpty($config['payum.required_options']);
 
-                return new Api();
+                return new Api(
+                    [
+                        'sandbox' => $config['sandbox'],
+                        'store_id' => $config['store_id'],
+                        'user_id' => $config['user_id'],
+                        'shared_secret' => $config['shared_secret'],
+                        'mode' => $config['mode'],
+                        'hash_algorithm' => $config['hash_algorithm'],
+                    ]
+                );
             };
         }
     }

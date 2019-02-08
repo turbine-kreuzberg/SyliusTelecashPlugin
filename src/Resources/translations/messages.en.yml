@@ -2,9 +2,6 @@ turbine:
     sylius_telecash_plugin:
         connect:
             label: Telecash Connect
-            form:
-                yes: Yes
-                no: No
             sandbox.label: Sandbox
             store_id.label: Store Id
             user_id.label: User Id
