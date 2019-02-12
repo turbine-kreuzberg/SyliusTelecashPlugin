@@ -6,6 +6,7 @@ use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Request\GetStatusInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Turbine\SyliusTelecashPlugin\Telecash\Connect\Api;
 
 class StatusAction implements ActionInterface
 {
@@ -20,20 +21,20 @@ class StatusAction implements ActionInterface
 
         $model = new ArrayObject($request->getModel());
 
-        if (null === $model['EXECCODE']) {
+        if (null === $model['telecash_request']) {
             $request->markNew();
 
             return;
         }
 
-        if (Api::EXECCODE_SUCCESSFUL === $model['EXECCODE']) {
+        if (isset($model['telecash_response']) && Api::isResponseSuccess($model['telecash_response'])) {
             $request->markCaptured();
 
             return;
         }
 
-        if (Api::EXECCODE_TIME_OUT  === $model['EXECCODE']) {
-            $request->markUnknown();
+        if (isset($model['telecash_response']) && Api::isResponseWait($model['telecash_response'])) {
+            $request->markPending();
 
             return;
         }

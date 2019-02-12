@@ -24,8 +24,9 @@ class TelecashConnectGatewayFactory extends GatewayFactory
                 'store_id' => null,
                 'user_id' => null,
                 'shared_secret' => null,
-                'mode' => 'payonly',
-                'hash_algorithm' => 'SHA256',
+                'checkout_option' => Api::PAYMENT_CHECKOUT_OPTION_CLASSIC,
+                'mode' => Api::PAYMENT_MODE_PAYONLY,
+                'hash_algorithm' => Api::PAYMENT_HASH_ALGORITHM_SHA256,
             ];
             $config->defaults($config['payum.default_options']);
             $config['payum.required_options'] = [
@@ -42,6 +43,7 @@ class TelecashConnectGatewayFactory extends GatewayFactory
                         'store_id' => $config['store_id'],
                         'user_id' => $config['user_id'],
                         'shared_secret' => $config['shared_secret'],
+                        'checkout_option' => $config['checkout_option'],
                         'mode' => $config['mode'],
                         'hash_algorithm' => $config['hash_algorithm'],
                     ]

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Turbine\SyliusTelecashPlugin\Telecash\Connect\Api;
 
 class TelecashConnectGatewayConfigurationType extends AbstractType
 {
@@ -48,14 +49,14 @@ class TelecashConnectGatewayConfigurationType extends AbstractType
             ])
             ->add('mode', ChoiceType::class, [
                 'choices' => [
-                    'turbine.sylius_telecash_plugin.connect.mode.payonly' => 'payonly',
+                    'turbine.sylius_telecash_plugin.connect.mode.payonly' => Api::PAYMENT_MODE_PAYONLY,
                 ],
                 'label' => 'turbine.sylius_telecash_plugin.connect.mode.label',
             ])
             ->add('hash_algorithm', ChoiceType::class, [
                 'choices' => [
-                    'turbine.sylius_telecash_plugin.connect.hash_algorithm.sha256' => 'SHA256',
-                    'turbine.sylius_telecash_plugin.connect.hash_algorithm.sha512' => 'SHA512',
+                    'turbine.sylius_telecash_plugin.connect.hash_algorithm.sha256' => Api::PAYMENT_HASH_ALGORITHM_SHA256,
+                    'turbine.sylius_telecash_plugin.connect.hash_algorithm.sha512' => Api::PAYMENT_HASH_ALGORITHM_SHA512,
                 ],
                 'label' => 'turbine.sylius_telecash_plugin.connect.hash_algorithm.label',
             ])
