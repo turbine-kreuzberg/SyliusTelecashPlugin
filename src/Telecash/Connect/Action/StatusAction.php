@@ -19,7 +19,7 @@ class StatusAction implements ActionInterface
     {
         RequestNotSupportedException::assertSupports($this, $request);
 
-        $model = new ArrayObject($request->getModel());
+        $model = ArrayObject::ensureArrayObject($request->getModel());
 
         if (null === $model['telecash_request']) {
             $request->markNew();

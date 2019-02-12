@@ -83,22 +83,4 @@ class CaptureOffsiteAction implements ActionInterface, GatewayAwareInterface, Ap
     {
         return $request instanceof Capture && $request->getModel() instanceof \ArrayAccess;
     }
-
-    /**
-     * @param ArrayObject $details
-     * @return ArrayObject
-     */
-    protected function ensureSafeURLs(ArrayObject $details): ArrayObject {
-        $httpQuery = 'http://';
-        if (strpos($details[Api::PAYMENT_RESPONSE_SUCCESS_URL], $httpQuery) === 0) {
-            $details[Api::PAYMENT_RESPONSE_SUCCESS_URL] = 'https://' .
-                substr($details[Api::PAYMENT_RESPONSE_SUCCESS_URL], strlen($httpQuery));
-        }
-
-        if (strpos($details[Api::PAYMENT_RESPONSE_FAIL_URL], $httpQuery) === 0) {
-            $details[Api::PAYMENT_RESPONSE_FAIL_URL] = 'https://' .
-                substr($details[Api::PAYMENT_RESPONSE_FAIL_URL], strlen($httpQuery));
-        }
-        return $details;
-    }
 }
