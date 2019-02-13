@@ -1,0 +1,16 @@
+services:
+    # context
+    Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Setup\ChannelContext:
+        public: true
+        arguments:
+            - '@sylius.behat.factory.default_channel'
+    Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Ui\Admin\ManagingPaymentMethodsContext:
+        public: true
+        arguments:
+            - '@Tests\Turbine\SyliusTelecashPlugin\Behat\Page\Admin\PaymentMethod\CreatePage'
+
+    #page
+    Tests\Turbine\SyliusTelecashPlugin\Behat\Page\Admin\PaymentMethod\CreatePage:
+        parent: 'sylius.behat.page.admin.crud.create'
+        arguments:
+            - 'sylius_admin_payment_method_create'

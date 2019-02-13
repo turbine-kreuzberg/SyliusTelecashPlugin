@@ -1,6 +1,6 @@
 turbine:
     sylius_telecash_plugin:
         connect:
-            store_id.not_blank: Store Id can't be empty
-            user_id.not_blank: User Id can't be empty
-            shared_secret.not_blank: Shared Secret can't be empty
+            store_id.not_blank: Store Id can't be empty.
+            user_id.not_blank: User Id can't be empty.
+            shared_secret.not_blank: Shared Secret can't be empty.

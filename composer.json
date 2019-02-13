@@ -49,8 +49,8 @@
             "Tests\\Turbine\\SyliusTelecashPlugin\\": "tests/"
         }
     },
-    "autoload-dev": {
-        "classmap": ["tests/Application/Kernel.php"]
+    "config": {
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
