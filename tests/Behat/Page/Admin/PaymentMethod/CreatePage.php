@@ -1,14 +1,13 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Tests\Turbine\SyliusTelecashPlugin\Behat\Page\Admin\PaymentMethod;
 
-use Behat\Mink\Element\NodeElement;
 use Sylius\Behat\Page\Admin\Crud\CreatePage as BaseCreatePage;
 
 class CreatePage extends BaseCreatePage implements CreatePageInterface
 {
-
     public function setTelecashConnectGatewaySandbox(bool $value): void
     {
         $this->getDocument()->checkField('Sandbox');

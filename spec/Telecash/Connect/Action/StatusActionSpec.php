@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Turbine\SyliusTelecashPlugin\Telecash\Connect\Action;
 
 use Payum\Core\Action\ActionInterface;
+use PhpSpec\ObjectBehavior;
 use Sylius\Bundle\PayumBundle\Request\GetStatus;
 use Turbine\SyliusTelecashPlugin\Telecash\Connect\Action\StatusAction;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Turbine\SyliusTelecashPlugin\Telecash\Connect\Api;
 
 class StatusActionSpec extends ObjectBehavior
@@ -42,8 +43,8 @@ class StatusActionSpec extends ObjectBehavior
         $model = new \ArrayObject([
             'telecash_request' => [],
             'telecash_response' => [
-                Api::PAYMENT_APPROVAL_CODE => 'Y:success'
-            ]
+                Api::PAYMENT_APPROVAL_CODE => 'Y:success',
+            ],
         ]);
 
         $request->getModel()->willReturn($model);
@@ -57,8 +58,8 @@ class StatusActionSpec extends ObjectBehavior
         $model = new \ArrayObject([
             'telecash_request' => [],
             'telecash_response' => [
-                Api::PAYMENT_APPROVAL_CODE => '?:pending'
-            ]
+                Api::PAYMENT_APPROVAL_CODE => '?:pending',
+            ],
         ]);
         $request->getModel()->willReturn($model);
         $request->markPending()->shouldBeCalled();
@@ -71,8 +72,8 @@ class StatusActionSpec extends ObjectBehavior
         $model = new \ArrayObject([
             'telecash_request' => [],
             'telecash_response' => [
-                Api::PAYMENT_APPROVAL_CODE => 'N:failed'
-            ]
+                Api::PAYMENT_APPROVAL_CODE => 'N:failed',
+            ],
         ]);
         $request->getModel()->willReturn($model);
         $request->markFailed()->shouldBeCalled();
