@@ -63,7 +63,7 @@ class Api
      *
      * @param mixed $options
      */
-    public function __construct(array $options)
+    public function __construct($options)
     {
         $options = ArrayObject::ensureArrayObject($options);
         $options->defaults($this->options);
@@ -171,14 +171,14 @@ class Api
     }
 
     /**
-     * @param $fields
+     * @param array $fields
      * @param string $hash_algorithm
      *
      * @return string
      */
     public static function generateHash(
-        $fields,
-        $hash_algorithm = self::PAYMENT_HASH_ALGORITHM_SHA256
+        array $fields,
+        string $hash_algorithm = self::PAYMENT_HASH_ALGORITHM_SHA256
     ): string {
         $stringToHash = '';
         foreach ($fields as $value) {

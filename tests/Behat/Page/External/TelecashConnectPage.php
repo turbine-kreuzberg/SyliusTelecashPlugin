@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Turbine\SyliusTelecashPlugin\Behat\Page\External;
 
 use Behat\Mink\Driver\BrowserKitDriver;
-use Behat\Mink\Exception\DriverException;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\Mink\Session;
 use FriendsOfBehat\PageObjectExtension\Page\Page;
@@ -14,7 +13,6 @@ use Sylius\Component\Core\Model\Payment;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\BrowserKit\Client;
 use Turbine\SyliusTelecashPlugin\Telecash\Connect\Api;
-
 
 final class TelecashConnectPage extends Page implements TelecashConnectPageInterface
 {
@@ -95,6 +93,7 @@ final class TelecashConnectPage extends Page implements TelecashConnectPageInter
 
     /**
      * @return Client
+     *
      * @throws UnsupportedDriverActionException
      */
     private function getClient()
@@ -102,9 +101,9 @@ final class TelecashConnectPage extends Page implements TelecashConnectPageInter
         $driver = $this->getSession()->getDriver();
         if (!$driver instanceof BrowserKitDriver) {
             throw new UnsupportedDriverActionException(
-                'You need to tag the scenario with '.
-                '"@mink:symfony2". '.
-                'Intercepting the redirections is not '.
+                'You need to tag the scenario with ' .
+                '"@mink:symfony2". ' .
+                'Intercepting the redirections is not ' .
                 'supported by %s', $this->getSession()->getDriver()
             );
         }
@@ -122,13 +121,15 @@ final class TelecashConnectPage extends Page implements TelecashConnectPageInter
             Api::PAYMENT_CHARGE_TOTAL => $request[Api::PAYMENT_CHARGE_TOTAL],
             Api::PAYMENT_CURRENCY => $request[Api::PAYMENT_CURRENCY],
             Api::PAYMENT_TXN_DATETIME => $request[Api::PAYMENT_TXN_DATETIME],
-            Api::PAYMENT_STORE_NAME => $request[Api::PAYMENT_STORE_NAME]
+            Api::PAYMENT_STORE_NAME => $request[Api::PAYMENT_STORE_NAME],
         ];
 
         $resultData[Api::PAYMENT_RESPONSE_HASH] =
             Api::generateHash(array_merge(['TEST_KEY'], array_values($resultData)));
+
         return $resultData;
     }
+
     private function getFailedResultData(TokenInterface $token, int $resultCode = 1): array
     {
         /** @var Payment $payment */
@@ -139,11 +140,12 @@ final class TelecashConnectPage extends Page implements TelecashConnectPageInter
             Api::PAYMENT_CHARGE_TOTAL => $request[Api::PAYMENT_CHARGE_TOTAL],
             Api::PAYMENT_CURRENCY => $request[Api::PAYMENT_CURRENCY],
             Api::PAYMENT_TXN_DATETIME => $request[Api::PAYMENT_TXN_DATETIME],
-            Api::PAYMENT_STORE_NAME => $request[Api::PAYMENT_STORE_NAME]
+            Api::PAYMENT_STORE_NAME => $request[Api::PAYMENT_STORE_NAME],
         ];
 
         $resultData[Api::PAYMENT_RESPONSE_HASH] =
             Api::generateHash(array_merge(['TEST_KEY'], array_values($resultData)));
+
         return $resultData;
     }
 }

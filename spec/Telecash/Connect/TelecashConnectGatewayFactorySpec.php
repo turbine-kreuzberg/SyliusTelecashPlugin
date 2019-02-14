@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Turbine\SyliusTelecashPlugin\Telecash\Connect;
 
 use Payum\Core\GatewayFactory;
-use Turbine\SyliusTelecashPlugin\Telecash\Connect\TelecashConnectGatewayFactory;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+use Turbine\SyliusTelecashPlugin\Telecash\Connect\TelecashConnectGatewayFactory;
 
 class TelecashConnectGatewayFactorySpec extends ObjectBehavior
 {

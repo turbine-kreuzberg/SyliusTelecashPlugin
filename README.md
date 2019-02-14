@@ -1,4 +1,4 @@
-check <p align="center">
+<p align="center">
     <a href="https://turbinekreuzberg.com" target="_blank">
         <img src="https://turbinekreuzberg.com/assets/images/logo-black.svg" />
     </a>
@@ -11,18 +11,16 @@ check <p align="center">
 
 ## Development
 
-1. TODO
+From the plugin root directory, run the following commands:
 
-2. From the plugin skeleton root directory, run the following commands:
+```bash
+$ (cd tests/Application && yarn install)
+$ (cd tests/Application && yarn build)
+$ (cd tests/Application && bin/console assets:install public -e test)
 
-    ```bash
-    $ (cd tests/Application && yarn install)
-    $ (cd tests/Application && yarn build)
-    $ (cd tests/Application && bin/console assets:install public -e test)
-    
-    $ (cd tests/Application && bin/console doctrine:database:create -e test)
-    $ (cd tests/Application && bin/console doctrine:schema:create -e test)
-    ```
+$ (cd tests/Application && bin/console doctrine:database:create -e test)
+$ (cd tests/Application && bin/console doctrine:schema:create -e test)
+```
 
 ## Usage
 

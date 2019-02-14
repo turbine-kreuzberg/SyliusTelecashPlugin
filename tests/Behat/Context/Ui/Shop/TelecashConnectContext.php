@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
 use Sylius\Behat\Page\Shop\Order\ShowPageInterface;
 use Tests\Turbine\SyliusTelecashPlugin\Behat\Page\External\TelecashConnectPageInterface;
 

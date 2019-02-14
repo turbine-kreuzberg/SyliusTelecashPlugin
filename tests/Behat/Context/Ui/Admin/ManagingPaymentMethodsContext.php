@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Ui\Admin;
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
 use Tests\Turbine\SyliusTelecashPlugin\Behat\Page\Admin\PaymentMethod\CreatePage;
 use Webmozart\Assert\Assert;
 
@@ -52,6 +52,7 @@ final class ManagingPaymentMethodsContext implements Context
             'Store Id can\'t be empty.'
         );
     }
+
     /**
      * @Then I should be notified that the merchant ID is invalid
      */
@@ -62,6 +63,7 @@ final class ManagingPaymentMethodsContext implements Context
             'User Id can\'t be empty.'
         );
     }
+
     /**
      * @Then I should be notified that the Key version is invalid
      */
