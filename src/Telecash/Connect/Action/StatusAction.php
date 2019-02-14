@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Turbine\SyliusTelecashPlugin\Telecash\Connect\Action;
 
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Request\GetStatusInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Payum\Core\Request\GetStatusInterface;
 use Turbine\SyliusTelecashPlugin\Telecash\Connect\Api;
 
 class StatusAction implements ActionInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @param GetStatusInterface $request
      */
@@ -45,7 +47,7 @@ class StatusAction implements ActionInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function supports($request)
     {

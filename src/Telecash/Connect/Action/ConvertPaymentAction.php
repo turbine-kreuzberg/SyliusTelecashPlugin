@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Turbine\SyliusTelecashPlugin\Telecash\Connect\Action;
 
 use Payum\Core\Action\ActionInterface;
@@ -10,8 +12,6 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Model\PaymentInterface;
 use Payum\Core\Request\Convert;
 use Payum\Core\Request\GetCurrency;
-use Payum\Core\Storage\IdentityInterface;
-use Payum\ISO4217\ISO4217;
 use Turbine\SyliusTelecashPlugin\Telecash\Connect\Api;
 
 class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface
@@ -19,7 +19,7 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface
     use GatewayAwareTrait;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @param Convert $request
      */
@@ -46,7 +46,7 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function supports($request)
     {

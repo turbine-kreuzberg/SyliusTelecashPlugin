@@ -35,7 +35,6 @@ class Api
     public const PAYMENT_HASH_ALGORITHM_SHA256 = 'SHA256';
     public const PAYMENT_HASH_ALGORITHM_SHA512 = 'SHA512';
 
-
     /**
      * @var array|ArrayObject
      */
@@ -61,17 +60,18 @@ class Api
 
     /**
      * Api constructor.
+     *
      * @param mixed $options
      */
     public function __construct(array $options)
     {
         $options = ArrayObject::ensureArrayObject($options);
         $options->defaults($this->options);
-        $options->validateNotEmpty(array(
+        $options->validateNotEmpty([
             'store_id',
             'user_id',
             'shared_secret',
-        ));
+        ]);
 
         if (!is_bool($options['sandbox'])) {
             throw new LogicException('The boolean sandbox option must be set.');
@@ -83,7 +83,8 @@ class Api
     /**
      * @return string
      */
-    public function getOffsiteUrl(): string {
+    public function getOffsiteUrl(): string
+    {
         return $this->options['sandbox'] ?
             'https://test.ipg-online.com/connect/gateway/processing' :
             'https://TODO_get_the_real_url_for_live'
@@ -92,9 +93,11 @@ class Api
 
     /**
      * @param array $model
+     *
      * @return array
      */
-    public function prepareOffsitePayment(array $model): array {
+    public function prepareOffsitePayment(array $model): array
+    {
         $fields = [
             self::PAYMENT_TXN_TYPE => self::PAYMENT_TXN_TYPE_SALE,
             self::PAYMENT_TIMEZONE => date_default_timezone_get(),
@@ -107,16 +110,16 @@ class Api
             self::PAYMENT_CURRENCY => $model[self::PAYMENT_CURRENCY],
             self::PAYMENT_LANGUAGE => 'en_US', //FIXME: set current channel language. See Connect Integration Guide page10-11
             self::PAYMENT_RESPONSE_SUCCESS_URL => $model[self::PAYMENT_RESPONSE_SUCCESS_URL],
-            self::PAYMENT_RESPONSE_FAIL_URL => $model[self::PAYMENT_RESPONSE_FAIL_URL]
+            self::PAYMENT_RESPONSE_FAIL_URL => $model[self::PAYMENT_RESPONSE_FAIL_URL],
         ];
 
-        $fields[self::PAYMENT_HASH] = Api::generateHash(
+        $fields[self::PAYMENT_HASH] = self::generateHash(
             [
                 $fields[self::PAYMENT_STORE_NAME],
                 $fields[self::PAYMENT_TXN_DATETIME],
                 $fields[self::PAYMENT_CHARGE_TOTAL],
                 $fields[self::PAYMENT_CURRENCY],
-                $this->options['shared_secret']
+                $this->options['shared_secret'],
             ],
             $this->options['hash_algorithm']
         );
@@ -127,18 +130,19 @@ class Api
     /**
      * @param array $request
      * @param array $response
+     *
      * @return bool
      */
     public function isResponseHashValid(array $request, array $response): bool
     {
-        $calculatedHash = Api::generateHash(
+        $calculatedHash = self::generateHash(
             [
                 $this->options['shared_secret'],
                 $response[self::PAYMENT_APPROVAL_CODE],
                 $request[self::PAYMENT_CHARGE_TOTAL],
                 $request[self::PAYMENT_CURRENCY],
                 $request[self::PAYMENT_TXN_DATETIME],
-                $request[self::PAYMENT_STORE_NAME]
+                $request[self::PAYMENT_STORE_NAME],
             ],
             $this->options['hash_algorithm']
         );
@@ -148,6 +152,7 @@ class Api
 
     /**
      * @param array $response
+     *
      * @return bool
      */
     public static function isResponseSuccess(array $response): bool
@@ -157,6 +162,7 @@ class Api
 
     /**
      * @param array $response
+     *
      * @return bool
      */
     public static function isResponseWait(array $response): bool
@@ -167,6 +173,7 @@ class Api
     /**
      * @param $fields
      * @param string $hash_algorithm
+     *
      * @return string
      */
     public static function generateHash(
@@ -177,6 +184,7 @@ class Api
         foreach ($fields as $value) {
             $stringToHash .= $value;
         }
+
         return hash(
             strtolower($hash_algorithm),
             bin2hex($stringToHash)

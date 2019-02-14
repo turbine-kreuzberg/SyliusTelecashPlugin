@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Turbine\SyliusTelecashPlugin\Telecash\Connect\Action;
-
 
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
@@ -10,23 +10,17 @@ use Payum\Core\ApiAwareTrait;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\InvalidArgumentException;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Exception\UnsupportedApiException;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\GatewayAwareTrait;
-use Payum\Core\GatewayInterface;
 use Payum\Core\Reply\HttpPostRedirect;
-use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Request\Capture;
 use Payum\Core\Request\GetHttpRequest;
-use Payum\Core\Request\RenderTemplate;
 use Turbine\SyliusTelecashPlugin\Telecash\Connect\Api;
 
 /**
  * Class CaptureOffsiteAction
  *
  * @property \Turbine\SyliusTelecashPlugin\Telecash\Connect\Api $api
- *
- * @package Turbine\SyliusTelecashPlugin\Telecash\Connect\Action
  */
 class CaptureOffsiteAction implements ActionInterface, GatewayAwareInterface, ApiAwareInterface
 {
@@ -39,7 +33,7 @@ class CaptureOffsiteAction implements ActionInterface, GatewayAwareInterface, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @param Capture $request
      */
@@ -77,7 +71,7 @@ class CaptureOffsiteAction implements ActionInterface, GatewayAwareInterface, Ap
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function supports($request)
     {
