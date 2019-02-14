@@ -110,14 +110,15 @@ class Api
             self::PAYMENT_RESPONSE_FAIL_URL => $model[self::PAYMENT_RESPONSE_FAIL_URL]
         ];
 
-        $fields[self::PAYMENT_HASH] = $this->calculateHash(
+        $fields[self::PAYMENT_HASH] = Api::generateHash(
             [
                 $fields[self::PAYMENT_STORE_NAME],
                 $fields[self::PAYMENT_TXN_DATETIME],
                 $fields[self::PAYMENT_CHARGE_TOTAL],
                 $fields[self::PAYMENT_CURRENCY],
                 $this->options['shared_secret']
-            ]
+            ],
+            $this->options['hash_algorithm']
         );
 
         return $fields;
@@ -130,7 +131,7 @@ class Api
      */
     public function isResponseHashValid(array $request, array $response): bool
     {
-        $calculatedHash = $this->calculateHash(
+        $calculatedHash = Api::generateHash(
             [
                 $this->options['shared_secret'],
                 $response[self::PAYMENT_APPROVAL_CODE],
@@ -138,7 +139,8 @@ class Api
                 $request[self::PAYMENT_CURRENCY],
                 $request[self::PAYMENT_TXN_DATETIME],
                 $request[self::PAYMENT_STORE_NAME]
-            ]
+            ],
+            $this->options['hash_algorithm']
         );
 
         return $calculatedHash === $response[self::PAYMENT_RESPONSE_HASH];
@@ -164,15 +166,19 @@ class Api
 
     /**
      * @param $fields
+     * @param string $hash_algorithm
      * @return string
      */
-    private function calculateHash($fields): string {
+    public static function generateHash(
+        $fields,
+        $hash_algorithm = self::PAYMENT_HASH_ALGORITHM_SHA256
+    ): string {
         $stringToHash = '';
         foreach ($fields as $value) {
             $stringToHash .= $value;
         }
         return hash(
-            strtolower($this->options['hash_algorithm']),
+            strtolower($hash_algorithm),
             bin2hex($stringToHash)
         );
     }

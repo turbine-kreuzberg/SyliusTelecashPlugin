@@ -40,7 +40,9 @@ default:
                 - sylius.behat.context.ui.shop.checkout.thank_you
 
                 - Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Setup\TelecashConnectContext
-                - Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Ui\Shop\CheckoutContext
+                - Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Ui\Shop\TelecashConnectContext
+            filters:
+                tags: "@paying_with_telecash_connect_for_order && @ui"
 
         ui_managing_payment_methods:
             contexts:

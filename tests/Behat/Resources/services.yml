@@ -4,13 +4,35 @@ services:
         public: true
         arguments:
             - '@sylius.behat.factory.default_channel'
+
+    Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Setup\TelecashConnectContext:
+        public: true
+        arguments:
+            - '@sylius.behat.shared_storage'
+            - '@sylius.repository.payment_method'
+            - '@sylius.fixture.example_factory.payment_method'
+            - '@sylius.manager.payment_method'
+            - { offline: Offline, telecash_connect: Telecash Connect }
+
     Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Ui\Admin\ManagingPaymentMethodsContext:
         public: true
         arguments:
             - '@Tests\Turbine\SyliusTelecashPlugin\Behat\Page\Admin\PaymentMethod\CreatePage'
+
+    Tests\Turbine\SyliusTelecashPlugin\Behat\Context\Ui\Shop\TelecashConnectContext:
+        public: true
+        arguments:
+            - '@Tests\Turbine\SyliusTelecashPlugin\Behat\Page\External\TelecashConnectPage'
+            - '@sylius.behat.page.shop.order.show'
 
     #page
     Tests\Turbine\SyliusTelecashPlugin\Behat\Page\Admin\PaymentMethod\CreatePage:
         parent: 'sylius.behat.page.admin.crud.create'
         arguments:
             - 'sylius_admin_payment_method_create'
+
+    Tests\Turbine\SyliusTelecashPlugin\Behat\Page\External\TelecashConnectPage:
+        parent: 'sylius.behat.page'
+        arguments:
+            $securityTokenRepository: '@sylius.repository.payment_security_token'
+            $paymentRepository: '@sylius.repository.payment'

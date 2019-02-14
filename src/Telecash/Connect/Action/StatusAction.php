@@ -39,6 +39,8 @@ class StatusAction implements ActionInterface
             return;
         }
 
+        //FIX: canceled by user is also marked as failed, can we use response code to figure out
+        //if user cancelled?
         $request->markFailed();
     }
 

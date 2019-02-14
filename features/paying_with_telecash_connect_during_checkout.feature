@@ -26,7 +26,7 @@ Feature: Paying with Telecash Connect during checkout
     And I have proceeded selecting "Telecash Connect" payment method
     When I confirm my order
     And I cancel my Telecash Connect payment
-    Then I should be notified that my payment has been cancelled
+    Then I should be notified that my payment has failed
     And I should be able to pay again
 
   @ui
@@ -48,5 +48,5 @@ Feature: Paying with Telecash Connect during checkout
     But I have cancelled Telecash Connect payment
     When I try to pay again Telecash Connect payment
     And I cancel my Telecash Connect payment
-    Then I should be notified that my payment has been cancelled
+    Then I should be notified that my payment has failed
     And I should be able to pay again
