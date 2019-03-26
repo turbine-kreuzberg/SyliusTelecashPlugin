@@ -7,3 +7,8 @@ monolog:
         firephp:
             type: firephp
             level: info
+        payum:
+            level:    debug
+            type:     stream
+            path:     '%kernel.logs_dir%/payum.log'
+            channels: [payum]

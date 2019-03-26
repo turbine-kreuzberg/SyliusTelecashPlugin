@@ -35,6 +35,13 @@ class Api
     public const PAYMENT_HASH_ALGORITHM_SHA256 = 'SHA256';
     public const PAYMENT_HASH_ALGORITHM_SHA512 = 'SHA512';
 
+    public const PAYMENT_ALLOWED_LANGUAGES = [
+        'zh_CN', 'zh_TW', 'cs_CZ', 'nl_NL', 'en_US', 'en_GB', 'fi_FI', 'fr_FR',
+        'de_DE', 'el_GR', 'it_IT', 'pl_PL', 'pt_BR', 'sr_RS', 'sk_SK', 'es_ES',
+    ];
+
+    public const PAYMENT_FALLBACK_LANGUAGE = 'en_US';
+
     /**
      * @var array|ArrayObject
      */
@@ -108,7 +115,7 @@ class Api
             self::PAYMENT_CHECKOUT_OPTION => $this->options['checkout_option'],
             self::PAYMENT_CHARGE_TOTAL => $model[self::PAYMENT_CHARGE_TOTAL],
             self::PAYMENT_CURRENCY => $model[self::PAYMENT_CURRENCY],
-            self::PAYMENT_LANGUAGE => 'en_US', //FIXME: set current channel language. See Connect Integration Guide page10-11
+            //self::PAYMENT_LANGUAGE => 'en_US', //TODO: if not set it uses the default language configured on telecash, do we need this?
             self::PAYMENT_RESPONSE_SUCCESS_URL => $model[self::PAYMENT_RESPONSE_SUCCESS_URL],
             self::PAYMENT_RESPONSE_FAIL_URL => $model[self::PAYMENT_RESPONSE_FAIL_URL],
         ];
@@ -139,8 +146,8 @@ class Api
             [
                 $this->options['shared_secret'],
                 $response[self::PAYMENT_APPROVAL_CODE],
-                $request[self::PAYMENT_CHARGE_TOTAL],
-                $request[self::PAYMENT_CURRENCY],
+                $response[self::PAYMENT_CHARGE_TOTAL],
+                $response[self::PAYMENT_CURRENCY],
                 $request[self::PAYMENT_TXN_DATETIME],
                 $request[self::PAYMENT_STORE_NAME],
             ],

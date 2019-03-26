@@ -47,27 +47,27 @@ class CaptureOffsiteAction implements ActionInterface, GatewayAwareInterface, Ap
         $this->gateway->execute($httpRequest);
 
         //we are back from telecash site so we have to just update model.
-        if (isset($httpRequest->request['approval_code'])) {
-            //check response hash
+        if ($httpRequest->method === 'POST') {
+            //check response hash signature
             if (!$this->api->isResponseHashValid($details['telecash_request'], $httpRequest->request)) {
                 throw new InvalidArgumentException('Not valid response');
             }
 
             $details['telecash_response'] = $httpRequest->request;
-        } else {
-            if ($request->getToken()) {
-                $details[Api::PAYMENT_RESPONSE_SUCCESS_URL] = $request->getToken()->getTargetUrl();
-                $details[Api::PAYMENT_RESPONSE_FAIL_URL] = $request->getToken()->getTargetUrl();
-            }
 
-            $details['telecash_request'] =
-                $this->api->prepareOffsitePayment($details->toUnsafeArray());
-
-            throw new HttpPostRedirect(
-                $this->api->getOffsiteUrl(),
-                $details['telecash_request']
-            );
+            return;
         }
+
+        $details[Api::PAYMENT_RESPONSE_SUCCESS_URL] = $request->getToken()->getTargetUrl();
+        $details[Api::PAYMENT_RESPONSE_FAIL_URL] = $request->getToken()->getTargetUrl();
+
+        $details['telecash_request'] =
+            $this->api->prepareOffsitePayment($details->toUnsafeArray());
+
+        throw new HttpPostRedirect(
+            $this->api->getOffsiteUrl(),
+            $details['telecash_request']
+        );
     }
 
     /**
